@@ -1,4 +1,11 @@
 <?php 
+session_start();
+
+if(!isset($_SESSION['task'])){
+    $_SESSION['task'] = [];
+}
+
+
 echo <<<HTML
 <!DOCTYPE html>
 <html lang="fr">
