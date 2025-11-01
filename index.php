@@ -15,6 +15,15 @@ if (isset($_POST['add'])) {
     }
 }
 
+if (isset($_GET['toggle'])) {
+    $i = (int) $_GET['toggle'];
+    if (isset($_SESSION['tasks'][$i])) {
+        $_SESSION['tasks'][$i]['done'] = !$_SESSION['tasks'][$i]['done'];
+    }
+}
+
+
+
 $html = <<<HTML
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,9 +40,14 @@ $html = <<<HTML
   </form>
 HTML;
 
-foreach ($_SESSION['tasks'] as $t) {
+
+foreach ($_SESSION['tasks'] as $i => $t) {
     $done = $t['done'] ? '✅' : '❌';
-    $html .= $t['text'] . ' | ' . $done . "<br>";
+    $html .= $t['text'] . ' | ' . $done;
+    $html .= <<<HTML
+<a href="?toggle=$i">Effectuée</a> <br>
+HTML;
+
 }
 
 $html .= <<<HTML
