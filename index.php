@@ -13,6 +13,8 @@ if (isset($_POST['add'])) {
             'done' => false
         ];
     }
+        header("Location: index.php");
+    exit;
 }
 
 if (isset($_GET['toggle'])) {
@@ -20,7 +22,20 @@ if (isset($_GET['toggle'])) {
     if (isset($_SESSION['tasks'][$i])) {
         $_SESSION['tasks'][$i]['done'] = !$_SESSION['tasks'][$i]['done'];
     }
+        header("Location: index.php");
+    exit;
 }
+
+if (isset($_GET['delete'])) {
+    $i = (int) $_GET['delete'];
+    if (isset($_SESSION['tasks'][$i])) {   
+        unset($_SESSION['tasks'][$i]);
+        $_SESSION['tasks'] = array_values($_SESSION['tasks']); 
+    }
+        header("Location: index.php");
+    exit;
+}
+
 
 
 
@@ -45,7 +60,9 @@ foreach ($_SESSION['tasks'] as $i => $t) {
     $done = $t['done'] ? '✅' : '❌';
     $html .= $t['text'] . ' | ' . $done;
     $html .= <<<HTML
-<a href="?toggle=$i">Effectuée</a> <br>
+<a href="?toggle=$i">Effectuée</a> 
+<a href="?delete=$i">Supprimée</a> <br>
+
 HTML;
 
 }
