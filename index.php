@@ -45,6 +45,8 @@ $html = <<<HTML
 <head>
   <meta charset="UTF-8">
   <title>To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
   <h1>Ma To-Do List</h1>
