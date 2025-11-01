@@ -6,7 +6,7 @@ if(!isset($_SESSION['task'])){
 }
 
 
-echo <<<HTML
+$html = <<<HTML
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,6 +23,18 @@ echo <<<HTML
 </body>
 </html>
 HTML;
+
+
+if (isset($_POST['add'])) {
+    $task = trim($_POST['task']); 
+    if ($task !== '') {
+        $_SESSION['tasks'][] = [
+            'text' => $task,
+            'done' => false
+        ];
+    }
+}
+
 
 
 ?>
