@@ -1,10 +1,19 @@
-<?php 
+<?php
 session_start();
 
-if(!isset($_SESSION['task'])){
-    $_SESSION['task'] = [];
+if (!isset($_SESSION['tasks'])) {
+    $_SESSION['tasks'] = [];
 }
 
+if (isset($_POST['add'])) {
+    $task = trim($_POST['task']);
+    if ($task !== '') {
+        $_SESSION['tasks'][] = [
+            'text' => $task,
+            'done' => false
+        ];
+    }
+}
 
 $html = <<<HTML
 <!DOCTYPE html>
@@ -20,21 +29,17 @@ $html = <<<HTML
     <input type="text" name="task" placeholder="Nouvelle tâche..." required>
     <button type="submit" name="add">Ajouter</button>
   </form>
+HTML;
+
+foreach ($_SESSION['tasks'] as $t) {
+    $done = $t['done'] ? '✅' : '❌';
+    $html .= $t['text'] . ' | ' . $done . "<br>";
+}
+
+$html .= <<<HTML
 </body>
 </html>
 HTML;
 
-
-if (isset($_POST['add'])) {
-    $task = trim($_POST['task']); 
-    if ($task !== '') {
-        $_SESSION['tasks'][] = [
-            'text' => $task,
-            'done' => false
-        ];
-    }
-}
-
-
-
+echo $html;
 ?>
