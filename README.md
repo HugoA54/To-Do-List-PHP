@@ -1,4 +1,4 @@
-\# 📝 To-Do List PHP
+\# To-Do List PHP
 
 
 
